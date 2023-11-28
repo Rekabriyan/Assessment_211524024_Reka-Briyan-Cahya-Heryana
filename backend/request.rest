@@ -11,3 +11,17 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/getbarang
+
+###
+DELETE http://localhost:5000/deletebarang/BRG_211524024_09
+
+###
+PUT http://localhost:5000/updatebarang/BRG_211524024_11
+Content-Type: application/json
+
+{
+    "nama_barang": "Pempek",
+    "satuan": "pcs",
+    "harga_satuan": 7000,
+    "stok": 55
+}

@@ -50,6 +50,28 @@ function App() {
         fetchData();
     }, []);
 
+    const deleteBarang = async (kode_barang) => {
+      try {
+        const response = await fetch(`http://localhost:5000/deletebarang/${kode_barang}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (response.ok) {
+          console.log('Data berhasil dihapus!');
+          // Refresh data setelah berhasil menghapus
+          fetchData();
+        } else {
+          console.error('Gagal menghapus data.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    
+
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -85,6 +107,7 @@ function App() {
                     <th>Satuan</th>
                     <th>Harga Satuan</th>
                     <th>Stok</th>
+                    <th>Actions</th>
                     {/* Tambahkan kolom lain sesuai kebutuhan */}
                 </tr>
             </thead>
@@ -96,6 +119,10 @@ function App() {
                         <td>{item.satuan}</td>
                         <td>{item.harga_satuan}</td>
                         <td>{item.stok}</td>
+                        <td>
+                        <button onClick={() => handleEdit(item.kode_barang)}>Edit</button>
+                        <button onClick={() => deleteBarang(item.kode_barang)}>Delete</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>
